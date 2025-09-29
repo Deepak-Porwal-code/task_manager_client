@@ -38,10 +38,10 @@ function ProfileModal() {
   };
 
   return (
-    <div className="fixed left-0 top-0 z-50 h-full w-full bg-black/40 backdrop-blur-sm overflow-hidden animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm overflow-y-auto py-6 px-4 animate-fadeIn">
       <div
         ref={ref}
-        className="py-5 px-6 max-w-[520px] w-full flex flex-col gap-3 bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl shadow-lg border border-gray-100 animate-scaleIn"
+        className="relative py-5 px-6 max-w-[520px] w-full flex flex-col gap-3 bg-white rounded-xl shadow-lg border border-gray-100 animate-scaleIn"
       >
         <div className="absolute left-0 top-0 w-full h-[80px] bg-gradient-to-r from-indigo-100 to-purple-100 rounded-t-xl"></div>
 
