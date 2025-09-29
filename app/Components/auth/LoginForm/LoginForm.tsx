@@ -13,21 +13,21 @@ function LoginForm() {
 
   const togglePassword = () => setShowPassword(!showPassword);
 
-  // Use the context's login function
-  const handleLogin = async (e) => {
+  // ✅ TypeScript fix: type the event
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       toast.error("Please enter both email and password");
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       // Use the loginUser function from context
       await loginUser(e);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
       toast.error(error.message || "Login failed");
     } finally {
@@ -36,7 +36,10 @@ function LoginForm() {
   };
 
   return (
-    <form className="relative m-[2rem] px-10 py-14 rounded-lg bg-white w-full max-w-[520px]">
+    <form
+      className="relative m-[2rem] px-10 py-14 rounded-lg bg-white w-full max-w-[520px]"
+      onSubmit={handleLogin} // ✅ Move handleLogin here
+    >
       <div className="relative z-10">
         <h1 className="mb-2 text-center text-[1.35rem] font-medium">
           Login to Your Account
@@ -81,11 +84,12 @@ function LoginForm() {
           <button
             type="button"
             className="absolute p-1 right-4 top-[43%] text-[22px] text-[#999] opacity-45"
+            onClick={togglePassword} // ✅ Move toggle here
           >
             {showPassword ? (
-              <i className="fas fa-eye-slash" onClick={togglePassword}></i>
+              <i className="fas fa-eye-slash"></i>
             ) : (
-              <i className="fas fa-eye" onClick={togglePassword}></i>
+              <i className="fas fa-eye"></i>
             )}
           </button>
         </div>
@@ -101,7 +105,6 @@ function LoginForm() {
           <button
             type="submit"
             disabled={!email || !password || isLoading}
-            onClick={handleLogin}
             className="mt-[1.5rem] flex-1 px-4 py-3 font-bold bg-[#2ECC71] text-white rounded-md hover:bg-[#1abc9c] transition-colors"
           >
             {isLoading ? "Logging in..." : "Login Now"}
